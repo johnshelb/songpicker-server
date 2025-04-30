@@ -1,5 +1,4 @@
 const express = require("express");
-
 // recordRoutes is an instance of the express router.
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
@@ -14,7 +13,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get(function (req, res) {
-  const {owner} = req.query;
+  const { owner } = req.query;
 let db_connect = dbo.getDb();
 db_connect
    .collection("Songs")
@@ -54,31 +53,20 @@ recordRoutes.post("/record/add",async function (req, res) {
   }
 });
 
-// This section will help you update a record by id.
-// recordRoutes.route("/update/:id").post(function (req, response) {
-//  let db_connect = dbo.getDb("Songpicker");
-//  let myquery = { _id:ObjectId(req.params.id)};
-//  let newvalues = {
-//      name: req.body.name,
-//      count:req.body.count
-//   }
-//  db_connect.collection("Songs").updateOne(myquery, newvalues, function (err, obj) {
-//     if (err) throw err;
-//     console.log("1 document updated");
-//     response.json(obj);
-//   }
-// );
-// });
-recordRoutes.route("/update/:id").post(function (req, response) {
+recordRoutes.route("/record/update/:id").post(function (req, response) {
+  console.log("inside update route");
+
   let db_connect = dbo.getDb();
-  let myquery = { _id: ObjectId( req.body._id )};
+  // let myquery = { _id: ObjectId( req.body._id )};
+  let myquery = { _id: ObjectId( req.params.id )};
+
   let newvalues = {
     $set: {
       name: req.body.name,
       count: req.body.count,
     },
   }
-
+console.log("update",myquery)
   db_connect.collection("Songs").updateOne(myquery, newvalues, function (err, obj) {
     if (err) throw err;
   response.json(obj);
