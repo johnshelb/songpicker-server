@@ -27,7 +27,9 @@ db_connect
 });
 
 // This section will help you get a single record by id
-recordRoutes.route("/record/:id").get(function (req, res) {
+recordRoutes.get("/:id", function (req, res) {
+
+//recordRoutes.route("/record/:id").get(function (req, res) {
  let db_connect = dbo.getDb();
  let myquery = { _id: ObjectId( req.params.id )};
  db_connect
@@ -39,7 +41,9 @@ recordRoutes.route("/record/:id").get(function (req, res) {
 });
 
 // This section will help you create a new record.
-recordRoutes.post("/record/add",async function (req, res) {
+recordRoutes.post("/add", async function (req, res) {
+
+// recordRoutes.post("/record/add",async function (req, res) {
   try{
     let db_connect = dbo.getDb();
     let myobj = req.body;
@@ -55,7 +59,9 @@ recordRoutes.post("/record/add",async function (req, res) {
   }
 });
 
-recordRoutes.route("/record/update/:id").post(function (req, response) {
+recordRoutes.post("/update/:id", function (req, response) {
+
+// recordRoutes.route("/record/update/:id").post(function (req, response) {
   console.log("inside update route");
 
   let db_connect = dbo.getDb();
@@ -75,7 +81,9 @@ console.log("update",myquery)
   });
 })
 // This section will help you delete a record
-recordRoutes.route("/record/:id").delete((req, response) => {
+recordRoutes.delete("/:id", (req, response) => {
+
+// recordRoutes.route("/record/:id").delete((req, response) => {
  let db_connect = dbo.getDb();
  let myquery = { _id: ObjectId( req.params.id )};
  db_connect.collection("Songs").deleteOne(myquery, function (err, obj) {
@@ -86,7 +94,9 @@ recordRoutes.route("/record/:id").delete((req, response) => {
 
 
 //check for duplicate usernames
-recordRoutes.route("/signUp").post((req, res) => {
+recordRoutes.post("/signUp", (req, res) => {
+
+// recordRoutes.route("/signUp").post((req, res) => {
   console.log("inside signup route");
   console.log(req.body);
   let db_connect = dbo.getDb();
@@ -103,8 +113,9 @@ recordRoutes.route("/signUp").post((req, res) => {
     }
   });
 })
+recordRoutes.get("/logIn", (req, res) => {
 
-recordRoutes.route("/logIn").get((req, res) => {
+// recordRoutes.route("/logIn").get((req, res) => {
   const {username} = req.query;
   console.log("username", username);
 
