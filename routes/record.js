@@ -12,22 +12,37 @@ const ObjectId = require("mongodb").ObjectId;
 
 
 // This section will help you get a list of all the records.
-recordRoutes.get("/", function (req, res) {
-//recordRoutes.route("/record").get(function (req, res) {
-   console.log("GET /record called", req.query);
+// recordRoutes.get("/", function (req, res) {
+// //recordRoutes.route("/record").get(function (req, res) {
+//    console.log("GET /record called", req.query);
 
-  const { owner } = req.query;
-let db_connect = dbo.getDb();
-db_connect
-   .collection("Songs")
-   .find({owner})
-   .toArray(function (err, result) {
-     if (err) throw err;
-     console.log("DB query result:", result); // <--- add this
+//   const { owner } = req.query;
+// let db_connect = dbo.getDb();
+// db_connect
+//    .collection("Songs")
+//    .find({owner})
+//    .toArray(function (err, result) {
+//      if (err) throw err;
+//      console.log("DB query result:", result); // <--- add this
 
-     res.json(result);
-   });
+//      res.json(result);
+//    });
+// });
+recordRoutes.get("/", async function (req, res) {
+  console.log("GET /record called");
+
+  try {
+    const db_connect = dbo.getDb();
+    // simple test query: get all documents without a filter
+    const result = await db_connect.collection("Songs").find({}).toArray();
+    console.log("DB query result count:", result.length); // just log the count
+    res.json(result);
+  } catch (err) {
+    console.error("Error in GET /record:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
+
 
 // This section will help you get a single record by id
 recordRoutes.get("/:id", function (req, res) {
