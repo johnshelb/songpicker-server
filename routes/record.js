@@ -23,6 +23,8 @@ db_connect
    .find({owner})
    .toArray(function (err, result) {
      if (err) throw err;
+     console.log("DB query result:", result); // <--- add this
+
      res.json(result);
    });
 });
