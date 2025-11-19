@@ -208,7 +208,7 @@ recordRoutes.post("/add", async (req, res) => {
 recordRoutes.post("/update/:id", async (req, res) => {
   try {
     const db_connect = dbo.getDb();
-    const myquery = { _id: ObjectId(req.params.id) };
+    const myquery = { _id: new ObjectId(req.params.id) };
     const newvalues = { $set: { name: req.body.name, count: req.body.count } };
     const result = await db_connect.collection("Songs").updateOne(myquery, newvalues);
     res.json(result);
@@ -222,7 +222,7 @@ recordRoutes.post("/update/:id", async (req, res) => {
 recordRoutes.delete("/:id", async (req, res) => {
   try {
     const db_connect = dbo.getDb();
-    const result = await db_connect.collection("Songs").deleteOne({ _id: ObjectId(req.params.id) });
+    const result = await db_connect.collection("Songs").deleteOne({ _id: new ObjectId(req.params.id) });
     res.json(result);
   } catch (err) {
     console.error("Error deleting record:", err);
