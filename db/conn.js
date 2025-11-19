@@ -3,11 +3,8 @@ const Db = process.env.ATLAS_URI;
 
 console.log("DB:", Db)
 
-const client = new MongoClient(Db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
+// const client = new MongoClient(Db);
+const client = new MongoClient(Db);
 let _db;
 
 module.exports = {
