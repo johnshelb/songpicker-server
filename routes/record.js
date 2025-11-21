@@ -96,6 +96,7 @@ recordRoutes.post("/signUp", async (req, res) => {
 // GET login
 recordRoutes.get("/logIn", async (req, res) => {
   try {
+    console.log("logigin in")
     const { username } = req.query;
     const db_connect = dbo.getDb();
     const user = await db_connect.collection("Users").findOne({ username });
