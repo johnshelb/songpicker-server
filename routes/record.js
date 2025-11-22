@@ -7,6 +7,7 @@ const ObjectId = require("mongodb").ObjectId;
 recordRoutes.get("/", async (req, res) => {
   const { owner } = req.query;
   try {
+    console.log("here I can log from the get all records for owner route")
     const db_connect = dbo.getDb();
     const records = await db_connect.collection("Songs").find({ owner }).toArray();
     res.json(records);
