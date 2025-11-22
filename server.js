@@ -10,6 +10,14 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+///////
+///////
+app("/",(req,res)=>{
+  console.log("hitting that route!")
+})
+//////////
+///////////
+
 // Mount the record routes under /record
 app.use("/record", require("./routes/record"));
 
