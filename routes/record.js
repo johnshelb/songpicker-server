@@ -17,24 +17,7 @@ recordRoutes.get("/", async (req, res) => {
   }
 });
 
-// GET a single record by ID
-recordRoutes.get("/:id", async (req, res) => {
-  try {
-    console.log("FROM the GET BY ID ROUTE.  id is: " + req.params.id)
-    const db_connect = dbo.getDb();
-    const record = await db_connect
-      .collection("Songs")
-      .findOne({ _id: new ObjectId(req.params.id) });   // NEEDS "NEW"?
-    if (record) {
-      res.json(record);
-    } else {
-      res.status(404).json({ message: "Record not found" });
-    }
-  } catch (err) {
-    console.error("Error fetching record:", err);
-    res.status(500).json({ error: "Failed to fetch record" });
-  }
-});
+
 
 // POST a new record
 recordRoutes.post("/add", async (req, res) => {
@@ -118,6 +101,25 @@ recordRoutes.get("/logIn", async (req, res) => {
   } catch (err) {
     console.error("Error logging in:", err);
     res.status(500).json({ error: err.message });
+  }
+});
+
+// GET a single record by ID
+recordRoutes.get("/:id", async (req, res) => {
+  try {
+    console.log("FROM the GET BY ID ROUTE.  id is: " + req.params.id)
+    const db_connect = dbo.getDb();
+    const record = await db_connect
+      .collection("Songs")
+      .findOne({ _id: new ObjectId(req.params.id) });   // NEEDS "NEW"?
+    if (record) {
+      res.json(record);
+    } else {
+      res.status(404).json({ message: "Record not found" });
+    }
+  } catch (err) {
+    console.error("Error fetching record:", err);
+    res.status(500).json({ error: "Failed to fetch record" });
   }
 });
 
