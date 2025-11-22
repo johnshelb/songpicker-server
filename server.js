@@ -31,5 +31,5 @@ async function startServer() {
 }
 
 startServer();
-
+console.log("running server")
 
