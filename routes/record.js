@@ -20,7 +20,7 @@ recordRoutes.get("/", async (req, res) => {
 // GET a single record by ID
 recordRoutes.get("/:id", async (req, res) => {
   try {
-    console.log("FROM the GET BY ID ROUTE")
+    console.log("FROM the GET BY ID ROUTE.  id is: " + req.params.id)
     const db_connect = dbo.getDb();
     const record = await db_connect
       .collection("Songs")
