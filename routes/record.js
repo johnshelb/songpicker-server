@@ -24,7 +24,7 @@ recordRoutes.get("/:id", async (req, res) => {
     const db_connect = dbo.getDb();
     const record = await db_connect
       .collection("Songs")
-      .findOne({ _id: ObjectId(req.params.id) });
+      .findOne({ _id: new ObjectId(req.params.id) });   // NEEDS "NEW"?
     if (record) {
       res.json(record);
     } else {
