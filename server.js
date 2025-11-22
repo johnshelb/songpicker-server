@@ -12,9 +12,9 @@ app.use(express.json());
 
 // ///////
 // ///////
-// app("/",(req,res)=>{
-//   console.log("hitting that route!")
-// })
+app.get("/",(req,res)=>{
+  console.log("hitting that route!")
+})
 // //////////
 // ///////////
 
