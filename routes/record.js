@@ -7,7 +7,6 @@ const ObjectId = require("mongodb").ObjectId;
 recordRoutes.get("/", async (req, res) => {
   const { owner } = req.query;
   try {
-    console.log("here I can log from the get all records for owner route")
     const db_connect = dbo.getDb();
     const records = await db_connect.collection("Songs").find({ owner }).toArray();
     res.json(records);
@@ -22,8 +21,6 @@ recordRoutes.get("/", async (req, res) => {
 // POST a new record
 recordRoutes.post("/add", async (req, res) => {
   try {
-        console.log("FROM the POST /ADD")
-
     const db_connect = dbo.getDb();
     const result = await db_connect.collection("Songs").insertOne(req.body);
     if (result.acknowledged) {
@@ -41,8 +38,6 @@ recordRoutes.post("/add", async (req, res) => {
 // POST update an existing record
 recordRoutes.post("/update/:id", async (req, res) => {
   try {
-        console.log("FROM the UNUSED UPDATE BY ID ROUTE")
-
     const db_connect = dbo.getDb();
     const myquery = { _id: new ObjectId(req.params.id) };
     const newvalues = { $set: { name: req.body.name, count: req.body.count } };
@@ -57,8 +52,6 @@ recordRoutes.post("/update/:id", async (req, res) => {
 // DELETE a record
 recordRoutes.delete("/:id", async (req, res) => {
   try {
-        console.log("FROM the DELETE BY ID ROUTE")
-
     const db_connect = dbo.getDb();
     const result = await db_connect.collection("Songs").deleteOne({ _id: new ObjectId(req.params.id) });
     res.json(result);
@@ -71,8 +64,6 @@ recordRoutes.delete("/:id", async (req, res) => {
 // POST signup (check for duplicates)
 recordRoutes.post("/signUp", async (req, res) => {
   try {
-        console.log("FROM the SIGN UP")
-
     const db_connect = dbo.getDb();
     const existingUser = await db_connect.collection("Users").findOne({ username: req.body.username });
     if (existingUser) {
@@ -89,7 +80,6 @@ recordRoutes.post("/signUp", async (req, res) => {
 // GET login
 recordRoutes.get("/logIn", async (req, res) => {
   try {
-    console.log("FROM THE LOGIN ROUTE", req)
     const { username } = req.query;
     const db_connect = dbo.getDb();
     const user = await db_connect.collection("Users").findOne({ username });
@@ -107,7 +97,6 @@ recordRoutes.get("/logIn", async (req, res) => {
 // GET a single record by ID
 recordRoutes.get("/:id", async (req, res) => {
   try {
-    console.log("FROM the GET BY ID ROUTE.  id is: " + req.params.id)
     const db_connect = dbo.getDb();
     const record = await db_connect
       .collection("Songs")
